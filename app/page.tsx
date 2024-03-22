@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -44,7 +43,8 @@ export default function Home() {
           <p className="leading-7 mt-6 text-lg">
             <TypeWriter
               originalText={
-                '前端监控平台，提供前端监控、性能监控、错误监控、用户行为监控等功能。'
+                // @BUG a1mc 在页面上显示的是 amc
+                'a1mc监控平台，提供前端监控、性能监控、错误监控、用户行为监控等功能。'
               }
             />
           </p>
@@ -83,6 +83,27 @@ export default function Home() {
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
+            <Link href="/console">
+              <Button variant="secondary" size="lg">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-square-arrow-out-up-right"
+                >
+                  <path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6" />
+                  <path d="m21 3-9 9" />
+                  <path d="M15 3h6v6" />
+                </svg>
+                &nbsp; 进入控制台（测试）
+              </Button>
+            </Link>
           </section>
         </div>
       </main>
