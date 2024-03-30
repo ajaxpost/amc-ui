@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import dayjs from 'dayjs';
 import useSWRMutation from 'swr/mutation';
+import { mutate } from 'swr';
 
 const formSchema = z.object({
   project_name: z.string().min(1, { message: '请填写项目名称' }),
@@ -24,18 +25,23 @@ const formSchema = z.object({
   project_desc: z.string(),
 });
 
-export default function CreateProjectForm() {
+interface IProps {
+  onCancel: () => void;
+}
+
+export default function CreateProjectForm({ onCancel }: IProps) {
   // 一个类型 useSWR + mutation 的 hook
   // 但是他不会自动发送请求
   const { trigger, isMutating } = useSWRMutation(
     '/api/project',
     async (url, { arg }: { arg: Record<string, string> }) => {
-      return await (
-        await fetch(url, {
-          method: 'POST',
-          body: JSON.stringify(arg),
-        })
-      ).json();
+      return await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(arg),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
     }
   );
 
@@ -53,11 +59,14 @@ export default function CreateProjectForm() {
       ...values,
       create_time: dayjs().format('YYYY-MM-DD HH:mm:ss'),
     };
-    // @TODO
-    // const result = await trigger(obj);
-    // if (result.code === 200) {
 
-    // }
+    const result = await trigger(obj);
+    const data = await result.json();
+
+    if (data.code === 200) {
+      mutate('/api/project?pageNum=1&pageSize=10');
+      onCancel();
+    }
   }
 
   return (

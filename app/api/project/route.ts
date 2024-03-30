@@ -6,7 +6,6 @@ export async function GET(request: NextRequest) {
   const pageNum = searchParams.get('pageNum');
   const pageSize = searchParams.get('pageSize');
   const name = searchParams.get('name');
-  console.log(pageNum, pageSize, name);
 
   const result = await fetch(`${baseUrl}/getProject`, {});
   const data = await result.json();
@@ -23,7 +22,11 @@ export async function POST(request: NextRequest) {
   const result = await fetch(`${baseUrl}/saveProject`, {
     method: 'POST',
     body: JSON.stringify(json),
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
   const data = await result.json();
+
   return Response.json(data);
 }

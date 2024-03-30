@@ -30,12 +30,14 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import CreateProjectForm from './create-project';
+import { useState } from 'react';
 
 export default function SearchSelect() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const project_id = searchParams.get('pid');
+  const [open, setOpen] = useState(false);
   const { data } = useSWR<HttpResult<ProjectProp[]>>(
     '/api/project?pageNum=1&pageSize=10',
     async (url: string) => {
@@ -113,6 +115,7 @@ export default function SearchSelect() {
                 {data?.data?.map((item) => {
                   return (
                     <CommandItem
+                      value={item.project_id}
                       key={item.project_id}
                       className={cn(
                         'relative flex cursor-pointer  select-none items-center rounded-sm px-2 py-1.5 outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 text-sm',
@@ -161,7 +164,12 @@ export default function SearchSelect() {
             </CommandList>
             <CommandList className="max-h-[300px] overflow-y-auto overflow-x-hidden">
               <CommandGroup className="overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground">
-                <Dialog>
+                <Dialog
+                  open={open}
+                  onOpenChange={(open) => {
+                    setOpen(open);
+                  }}
+                >
                   <DialogTrigger className="w-full">
                     <CommandItem className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 text-sm">
                       <svg
@@ -187,7 +195,7 @@ export default function SearchSelect() {
                     <DialogHeader>
                       <DialogTitle>新项目信息</DialogTitle>
                       <DialogDescription asChild>
-                        <CreateProjectForm />
+                        <CreateProjectForm onCancel={() => setOpen(false)} />
                       </DialogDescription>
                     </DialogHeader>
                   </DialogContent>
