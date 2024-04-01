@@ -1,41 +1,37 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import * as echarts from 'echarts';
-import useSWR from 'swr';
 import { useSearchParams } from 'next/navigation';
-import dayjs from 'dayjs';
+import useSWR from 'swr';
+import { createUrl } from '@/lib/utils';
 import { HttpResult } from '@/lib/data';
-import { ErrorMapType } from '../data';
-import { chartTheme } from '@/lib/chart-theme';
+import { ErrorHourMayType } from '../data';
 import { useTheme } from 'next-themes';
+import * as echarts from 'echarts';
+import dayjs from 'dayjs';
+import { chartTheme } from '@/lib/chart-theme';
 
 let chart: echarts.ECharts | null = null;
-export default function ErrorChart() {
+export default function JsError() {
+  const main = useRef<HTMLDivElement | null>(null);
   const { theme, systemTheme } = useTheme();
 
   const searchParams = useSearchParams();
   const pid = searchParams.get('pid');
-  const main = useRef<HTMLDivElement | null>(null);
-  useSWR<HttpResult<ErrorMapType>>(
-    ['/api/error', pid],
+
+  useSWR<HttpResult<ErrorHourMayType>>(
+    ['/api/error/hour', pid],
     async ([url, pid]) => {
-      const startDate = dayjs().subtract(30, 'day').valueOf();
-      const endDate = dayjs().valueOf();
       return await (
         await fetch(
-          url + `?pid=${pid}&startDate=${startDate}&endDate=${endDate}`,
-          {
-            method: 'GET',
-          }
+          createUrl(url, {
+            pid,
+          }),
+          { method: 'GET' }
         )
       ).json();
     },
     {
-      // 默认情况下是 2000 毫秒
-      // 他会在 2000 毫秒内不重复请求
-      // 但是我们这里是图表，不需要缓存
-      // 所以设置为 0
       dedupingInterval: 0,
       onSuccess: (data) => {
         if (data.code === 200) {
@@ -44,21 +40,18 @@ export default function ErrorChart() {
             main.current!,
             _theme === 'dark' ? 'dark' : 'essos'
           );
-          const startDate = dayjs().subtract(30, 'day').valueOf();
-          const endDate = dayjs().valueOf();
+
+          const startDate = dayjs().startOf('day').valueOf();
+          const endDate = dayjs().endOf('day').valueOf();
 
           const xData: string[] = [];
-          for (let i = startDate; i <= endDate; i += 24 * 60 * 60 * 1000) {
-            xData.push(dayjs(i).format('YYYY-MM-DD'));
+          for (let i = startDate; i <= endDate; i += 60 * 60 * 1000) {
+            xData.push(dayjs(i).format('HH:mm'));
           }
 
           const jsErrorData = getData('jsError', xData, data);
 
-          const consoleErrorData = getData('console_error', xData, data);
-
-          const jsErrorPer = getData('jsErrorPer', xData, data);
-
-          const consoleErrorPer = getData('console_errorPer', xData, data);
+          //   const jsErrorPer = getData('jsErrorPer', xData, data);
 
           const options = {
             tooltip: {
@@ -72,7 +65,7 @@ export default function ErrorChart() {
             },
             legend: {},
             grid: {
-              top: '15%',
+              top: '10%',
               left: '3%',
               right: '3%',
               bottom: '0%',
@@ -93,16 +86,13 @@ export default function ErrorChart() {
             yAxis: [
               {
                 type: 'value',
-                name: '错误数',
                 min: 0,
-                interval: 5,
                 axisLabel: {
                   formatter: '{value}',
                 },
               },
               {
                 type: 'value',
-                name: '错误占比',
                 min: 0,
                 max: 100,
                 interval: 25,
@@ -113,38 +103,10 @@ export default function ErrorChart() {
             ],
             series: [
               {
-                name: 'JS错误',
+                name: '错误量',
                 type: 'bar',
                 data: jsErrorData,
                 stack: 'one',
-              },
-              {
-                name: '自定义错误',
-                type: 'bar',
-                data: consoleErrorData,
-                stack: 'one',
-              },
-              {
-                name: 'JS错误占比',
-                type: 'line',
-                tooltip: {
-                  valueFormatter: function (value: number) {
-                    return value + '%';
-                  },
-                },
-                data: jsErrorPer,
-                yAxisIndex: 1,
-              },
-              {
-                name: '自定义错误占比',
-                type: 'line',
-                tooltip: {
-                  valueFormatter: function (value: number) {
-                    return value + '%';
-                  },
-                },
-                data: consoleErrorPer,
-                yAxisIndex: 1,
               },
             ],
           };
@@ -172,7 +134,6 @@ export default function ErrorChart() {
       chart && chart.resize();
     });
     resize.observe(main.current!);
-
     return () => {
       chart && chart.dispose();
       chart = null;
@@ -183,15 +144,15 @@ export default function ErrorChart() {
   function getData(
     dataStr: string,
     xData: string[],
-    data: HttpResult<ErrorMapType>
+    data: HttpResult<ErrorHourMayType>
   ) {
     const result = [];
     for (let i = 0; i < xData.length; i++) {
-      const find = data.data?.[dataStr].find((item) => item.day === xData[i]);
-      result.push(find?.count || find?.per || 0);
+      const find = data.data?.[dataStr].find((item) => item.hour === xData[i]);
+      result.push(find?.count || 0);
     }
     return result;
   }
 
-  return <div ref={main} className="h-[300px] w-full"></div>;
+  return <div ref={main} className="w-full h-[300px]"></div>;
 }

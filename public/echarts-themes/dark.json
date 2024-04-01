@@ -1,36 +1,48 @@
 {
-  "color": ["#893448", "#d95850", "#eb8146", "#ffb248", "#f2d643", "#ebdba4"],
-  "backgroundColor": "#ffffff",
+  "color": [
+    "#dd6b66",
+    "#759aa0",
+    "#e69d87",
+    "#8dc1a9",
+    "#ea7e53",
+    "#eedd78",
+    "#73a373",
+    "#73b9bc",
+    "#7289ab",
+    "#91ca8c",
+    "#f49f42"
+  ],
+  "backgroundColor": "rgba(51,51,51,1)",
   "textStyle": {},
   "title": {
     "textStyle": {
-      "color": "#893448"
+      "color": "#eeeeee"
     },
     "subtextStyle": {
-      "color": "#d95850"
+      "color": "#aaaaaa"
     }
   },
   "line": {
     "itemStyle": {
-      "borderWidth": "2"
+      "borderWidth": 1
     },
     "lineStyle": {
-      "width": "2"
+      "width": 2
     },
-    "symbolSize": "6",
-    "symbol": "emptyCircle",
-    "smooth": true
+    "symbolSize": 4,
+    "symbol": "circle",
+    "smooth": false
   },
   "radar": {
     "itemStyle": {
-      "borderWidth": "2"
+      "borderWidth": 1
     },
     "lineStyle": {
-      "width": "2"
+      "width": 2
     },
-    "symbolSize": "6",
-    "symbol": "emptyCircle",
-    "smooth": true
+    "symbolSize": 4,
+    "symbol": "circle",
+    "smooth": false
   },
   "bar": {
     "itemStyle": {
@@ -53,28 +65,28 @@
 
   "toolbox": {
     "iconStyle": {
-      "borderColor": "#999999"
+      "borderColor": "#999"
     },
     "emphasis": {
       "iconStyle": {
-        "borderColor": "#666666"
+        "borderColor": "#666"
       }
     }
   },
   "legend": {
     "textStyle": {
-      "color": "#999999"
+      "color": "#eeeeee"
     }
   },
   "tooltip": {
     "axisPointer": {
       "lineStyle": {
-        "color": "#cccccc",
-        "width": 1
+        "color": "#eeeeee",
+        "width": "1"
       },
       "crossStyle": {
-        "color": "#cccccc",
-        "width": 1
+        "color": "#eeeeee",
+        "width": "1"
       }
     }
   },
@@ -82,29 +94,29 @@
     "axisLine": {
       "show": true,
       "lineStyle": {
-        "color": "#aaaaaa"
+        "color": "#eeeeee"
       }
     },
     "axisTick": {
-      "show": false,
+      "show": true,
       "lineStyle": {
-        "color": "#333"
+        "color": "#eeeeee"
       }
     },
     "axisLabel": {
       "show": true,
-      "color": "#999999"
+      "color": "#eeeeee"
     },
     "splitLine": {
       "show": true,
       "lineStyle": {
-        "color": ["#e6e6e6"]
+        "color": ["#aaaaaa"]
       }
     },
     "splitArea": {
       "show": false,
       "areaStyle": {
-        "color": ["rgba(250,250,250,0.05)", "rgba(200,200,200,0.02)"]
+        "color": ["#eeeeee"]
       }
     }
   }
