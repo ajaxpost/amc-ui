@@ -24,13 +24,12 @@ export default function Component({ errorId }: { errorId: string }) {
       ).json();
     }
   );
-  console.log(data, 123);
 
   return (
     <SheetContent className="w-10/12 sm:max-w-full overflow-auto">
       <SheetHeader>
         <SheetTitle>{errorId}</SheetTitle>
-        <SheetDescription>desc,desc,desc</SheetDescription>
+        <SheetDescription>desc,desc,desc,123</SheetDescription>
       </SheetHeader>
       {JSON.stringify(data || "")}
     </SheetContent>

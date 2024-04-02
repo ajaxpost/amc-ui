@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
 
   const result = await fetch(`${baseUrl}/getProject`, {});
   const data = await result.json();
+
   if (data.code === 200)
     return Response.json({
       data: data.data,

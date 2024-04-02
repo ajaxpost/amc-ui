@@ -20,9 +20,9 @@ import useSWRMutation from 'swr/mutation';
 import { mutate } from 'swr';
 
 const formSchema = z.object({
-  project_name: z.string().min(1, { message: '请填写项目名称' }),
-  project_id: z.string().min(1, { message: '项目唯一标识' }),
-  project_desc: z.string(),
+  projectName: z.string().min(1, { message: '请填写项目名称' }),
+  projectId: z.string().min(1, { message: '项目唯一标识' }),
+  projectDesc: z.string(),
 });
 
 interface IProps {
@@ -48,9 +48,9 @@ export default function CreateProjectForm({ onCancel }: IProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      project_name: '',
-      project_desc: '',
-      project_id: '',
+      projectName: '',
+      projectDesc: '',
+      projectId: '',
     },
   });
 
@@ -75,7 +75,7 @@ export default function CreateProjectForm({ onCancel }: IProps) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
-          name="project_id"
+          name="projectId"
           render={({ field }) => (
             <FormItem>
               <FormLabel>ID</FormLabel>
@@ -89,7 +89,7 @@ export default function CreateProjectForm({ onCancel }: IProps) {
         />
         <FormField
           control={form.control}
-          name="project_name"
+          name="projectName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>项目名称</FormLabel>
@@ -104,7 +104,7 @@ export default function CreateProjectForm({ onCancel }: IProps) {
 
         <FormField
           control={form.control}
-          name="project_desc"
+          name="projectDesc"
           render={({ field }) => (
             <FormItem>
               <FormLabel>项目描述</FormLabel>
