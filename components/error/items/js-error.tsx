@@ -117,6 +117,26 @@ export default function JsError() {
     }
   );
 
+  const { data } = useSWR(
+    ['/api/error/getErrorList', pid],
+    async ([url, pid]) => {
+      const startDate = dayjs().subtract(300, 'minute').valueOf();
+      const endDate = dayjs().valueOf();
+      return await (
+        await fetch(
+          createUrl(url, {
+            pid,
+            startDate,
+            endDate,
+            type: 'jsError',
+          })
+        )
+      ).json();
+    }
+  );
+
+  console.log(data);
+
   useEffect(() => {
     if (!chart) return;
     const themeConfig = {};
@@ -154,5 +174,9 @@ export default function JsError() {
     return result;
   }
 
-  return <div ref={main} className="w-full h-[300px]"></div>;
+  return (
+    <>
+      <div ref={main} className="w-full h-[300px]"></div>
+    </>
+  );
 }
