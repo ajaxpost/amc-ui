@@ -60,8 +60,7 @@ export default function SearchSelect() {
               />
             </span>
             {project_id
-              ? data?.data?.find((o) => o.project_id === project_id)
-                  ?.project_name
+              ? data?.data?.find((o) => o.projectId === project_id)?.projectName
               : 'Select Project'}
             <svg
               width="15"
@@ -115,17 +114,17 @@ export default function SearchSelect() {
                 {data?.data?.map((item) => {
                   return (
                     <CommandItem
-                      value={item.project_id}
-                      key={item.project_id}
+                      value={item.projectId}
+                      key={item.projectId}
                       className={cn(
                         'relative flex cursor-pointer  select-none items-center rounded-sm px-2 py-1.5 outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 text-sm',
                         {
                           'bg-accent text-accent-foreground':
-                            item.project_id === project_id,
+                            item.projectId === project_id,
                         }
                       )}
                       onSelect={() => {
-                        router.replace(`${pathname}?pid=${item.project_id}`);
+                        router.replace(`${pathname}?pid=${item.projectId}`);
                       }}
                     >
                       <span className="relative flex shrink-0 overflow-hidden rounded-full mr-2 h-5 w-5">
@@ -137,8 +136,8 @@ export default function SearchSelect() {
                           className=" aspect-square grayscale w-full h-full"
                         />
                       </span>
-                      {item.project_name}
-                      {item.project_id === project_id && (
+                      {item.projectName}
+                      {item.projectId === project_id && (
                         <svg
                           width="15"
                           height="15"

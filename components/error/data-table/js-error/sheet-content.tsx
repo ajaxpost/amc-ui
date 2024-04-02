@@ -24,7 +24,6 @@ export default function Component({ errorId }: { errorId: string }) {
       ).json();
     }
   );
-  console.log(data);
 
   return (
     <SheetContent className="w-10/12 sm:max-w-full overflow-auto">
