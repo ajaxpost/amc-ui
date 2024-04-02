@@ -17,11 +17,13 @@ export default function ErrorChart() {
   const searchParams = useSearchParams();
   const pid = searchParams.get('pid');
   const main = useRef<HTMLDivElement | null>(null);
+
   useSWR<HttpResult<ErrorMapType>>(
     ['/api/error', pid],
     async ([url, pid]) => {
       const startDate = dayjs().subtract(30, 'day').valueOf();
       const endDate = dayjs().valueOf();
+
       return await (
         await fetch(
           url + `?pid=${pid}&startDate=${startDate}&endDate=${endDate}`,
@@ -37,6 +39,7 @@ export default function ErrorChart() {
       // 但是我们这里是图表，不需要缓存
       // 所以设置为 0
       dedupingInterval: 0,
+      revalidateOnMount: true,
       onSuccess: (data) => {
         if (data.code === 200) {
           const _theme = theme === 'system' ? systemTheme : theme;

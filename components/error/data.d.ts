@@ -5,3 +5,11 @@ export interface ErrorMapType {
 export interface ErrorHourMayType {
   [key: string]: { count: number; hour: string }[];
 }
+
+export interface ErrorListProps {
+  apiKey: string;
+  errorId: string;
+  errorMsg: string;
+  type: string;
+  time: number;
+}

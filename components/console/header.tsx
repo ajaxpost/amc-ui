@@ -1,18 +1,31 @@
 'use client';
+import { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { GitHub } from '../github';
 import { ModeToggle } from '../mode-toggle';
 import SearchSelect from './search-select';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { Toaster } from '@/components/ui/sonner';
+import { toast } from 'sonner';
 
 export default function Header() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const pid = searchParams.get('pid');
 
+  useEffect(() => {
+    if (pathname === '/') return;
+    if (!pid) {
+      toast.error('请先选择项目', {
+        description: '在左上角选择您要监控的项目,或者添加您的项目。',
+      });
+    }
+  }, [pathname, pid]);
+
   return (
     <header className="border-b">
+      <Toaster richColors closeButton />
       <div className="flex h-16 items-center px-4">
         <SearchSelect />
         <div className="flex items-center space-x-4 lg:space-x-6 mx-6">

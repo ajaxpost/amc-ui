@@ -6,8 +6,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import ErrorChart from './items/error-chart';
-import JsError from './items/js-error';
-import CustomError from './items/custom-error';
+import JsError from './rsc/js-error';
+import CustomError from './rsc/custom-error';
 import dayjs from 'dayjs';
 
 export default function Overflow() {
