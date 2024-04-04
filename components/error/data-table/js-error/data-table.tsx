@@ -138,7 +138,7 @@ export default function Componetn() {
           }
         }}
       >
-        <SheetContent errorId={errorId!} />
+        {errorId && <SheetContent errorId={errorId} />}
       </Sheet>
     </div>
   );
