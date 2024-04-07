@@ -1,8 +1,12 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import Overflow from '@/components/error/overflow';
-import ErrorList from '@/components/error/error-list';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Overflow from "@/components/error/overflow";
+import ErrorList from "@/components/error/error-list";
 
-export default function Page() {
+export default function Page({
+  searchParams,
+}: {
+  searchParams: Record<string, unknown>;
+}) {
   return (
     <div className="p-4">
       <Tabs defaultValue="overflow" className="w-full">
@@ -11,7 +15,7 @@ export default function Page() {
           <TabsTrigger value="error-list">错误列表</TabsTrigger>
         </TabsList>
         <TabsContent value="overflow">
-          <Overflow />
+          <Overflow searchParams={searchParams} />
         </TabsContent>
         <TabsContent value="error-list">
           <ErrorList />

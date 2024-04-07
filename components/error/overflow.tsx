@@ -4,13 +4,17 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import ErrorChart from './items/error-chart';
-import JsError from './rsc/js-error';
-import CustomError from './rsc/custom-error';
-import dayjs from 'dayjs';
+} from "@/components/ui/card";
+import ErrorChart from "./items/error-chart";
+import JsError from "./rsc/js-error";
+import CustomError from "./rsc/custom-error";
+import dayjs from "dayjs";
 
-export default function Overflow() {
+export default function Overflow({
+  searchParams,
+}: {
+  searchParams: Record<string, unknown>;
+}) {
   return (
     <>
       <Card>
@@ -46,13 +50,13 @@ export default function Overflow() {
                     <path d="M4 13a8 8 0 0 1 8-7 8 8 0 1 1-5.3 14L4 17.6" />
                     <path d="M9 17H4v5" />
                   </svg>
-                  {dayjs().format('YYYY-MM-DD')}
+                  {dayjs().format("YYYY-MM-DD")}
                 </span>
               </div>
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-            <JsError />
+            <JsError searchParams={searchParams} />
           </CardContent>
         </Card>
         <Card>
@@ -78,7 +82,7 @@ export default function Overflow() {
                     <path d="M4 13a8 8 0 0 1 8-7 8 8 0 1 1-5.3 14L4 17.6" />
                     <path d="M9 17H4v5" />
                   </svg>
-                  {dayjs().format('YYYY-MM-DD')}
+                  {dayjs().format("YYYY-MM-DD")}
                 </span>
               </div>
             </CardTitle>

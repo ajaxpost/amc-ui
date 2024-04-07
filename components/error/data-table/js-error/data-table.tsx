@@ -24,7 +24,12 @@ import { Sheet } from "@/components/ui/sheet";
 import SheetContent from "./sheet-content";
 import { useRouter, usePathname } from "next/navigation";
 
-export default function Componetn() {
+interface Props {
+  children: React.ReactNode;
+}
+
+export default function Componetn(porp: Props) {
+  const { children } = porp;
   const [open, setOpen] = useState(false);
   const searchParams = useSearchParams(); //获取地址栏参数
   const pid = searchParams.get("pid");
@@ -35,7 +40,7 @@ export default function Componetn() {
   const { data } = useSWR<ErrorListProps[]>(
     ["/api/error/getErrorList", pid],
     async ([url, pid]) => {
-      const startDate = dayjs().subtract(1, "hour").valueOf();
+      const startDate = dayjs().subtract(1, "year").valueOf();
       const endDate = dayjs().valueOf();
       return await (
         await fetch(
@@ -138,7 +143,7 @@ export default function Componetn() {
           }
         }}
       >
-        {errorId && <SheetContent errorId={errorId} />}
+        {errorId && <SheetContent errorId={errorId}>{children}</SheetContent>}
       </Sheet>
     </div>
   );
