@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import useSWR from "swr";
-import { ErrorListProps } from "../../data";
-import dayjs from "dayjs";
-import { createUrl } from "@/lib/utils";
-import { useSearchParams } from "next/navigation";
-import { columns } from "./columns";
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import { ErrorListProps } from '../../data';
+import dayjs from 'dayjs';
+import { createUrl } from '@/lib/utils';
+import { useSearchParams } from 'next/navigation';
+import { columns } from './columns';
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
 import {
   Table,
   TableBody,
@@ -19,10 +19,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Sheet } from "@/components/ui/sheet";
-import SheetContent from "./sheet-content";
-import { useRouter, usePathname } from "next/navigation";
+} from '@/components/ui/table';
+import { Sheet } from '@/components/ui/sheet';
+import SheetContent from './sheet-content';
+import { useRouter, usePathname } from 'next/navigation';
 
 interface Props {
   children: React.ReactNode;
@@ -32,15 +32,15 @@ export default function Componetn(porp: Props) {
   const { children } = porp;
   const [open, setOpen] = useState(false);
   const searchParams = useSearchParams(); //获取地址栏参数
-  const pid = searchParams.get("pid");
-  const errorId = searchParams.get("errorId");
+  const pid = searchParams.get('pid');
+  const errorId = searchParams.get('errorId');
   const router = useRouter();
   const pathname = usePathname();
 
   const { data } = useSWR<ErrorListProps[]>(
-    ["/api/error/getErrorList", pid],
+    ['/api/error/getErrorList', pid],
     async ([url, pid]) => {
-      const startDate = dayjs().subtract(1, "year").valueOf();
+      const startDate = dayjs().subtract(1, 'year').valueOf();
       const endDate = dayjs().valueOf();
       return await (
         await fetch(
@@ -48,7 +48,7 @@ export default function Componetn(porp: Props) {
             pid,
             startDate,
             endDate,
-            type: "jsError",
+            type: 'jsError',
           })
         )
       ).json();
@@ -92,7 +92,7 @@ export default function Componetn(porp: Props) {
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                   onClick={() => {
                     router.replace(
                       createUrl(pathname, {
