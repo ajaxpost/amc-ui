@@ -8,14 +8,18 @@ import {
 import { TodayFlowDataByTenMinProps, TodayType } from "./data";
 import dayjs from "dayjs";
 const baseUrl = process.env.NEXT_REQUEST_URL;
+
+export const dynamic = "force-dynamic";
+
 export default async function Page({
   searchParams,
 }: {
   searchParams: Record<string, unknown>;
 }) {
   const url = `${baseUrl}/getTodayFlowDataByTenMin?pid=${searchParams.pid}`;
-  const result = await (await fetch(url)).json();
+  const result = await (await fetch(url, {})).json();
   const data = result.data as TodayFlowDataByTenMinProps;
+  console.log(data, "data22");
   // 今日访问量
   const todayHandler = (value: TodayType[]) => {
     return (

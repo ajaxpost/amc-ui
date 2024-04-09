@@ -46,3 +46,8 @@ export interface ErrorType {
   userId: string;
   [name: string]: any;
 }
+
+export interface ErrorCountListByHour {
+  count: number;
+  hour: string;
+}

@@ -1,12 +1,12 @@
-import { tagListConfig } from './config';
+import { tagListConfig } from "./config";
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from '@/components/ui/accordion';
-import InfoOverView from './overview';
-import { ErrorType } from '@/components/error/data';
+} from "@/components/ui/accordion";
+import InfoOverView from "./overview";
+import { ErrorType } from "@/components/error/data";
 
 const baseUrl = process.env.NEXT_REQUEST_URL;
 export default async function Component({
@@ -135,7 +135,7 @@ export default async function Component({
                 </AccordionContent>
               </AccordionItem>
             </Accordion> */}
-            {data?.errorStack.split('\n').map((item, index) => {
+            {data?.errorStack.split("\n").map((item, index) => {
               return <div key={index}>{item}</div>;
             })}
           </div>
@@ -148,7 +148,7 @@ export default async function Component({
         }
         `}</style>
       <div className="p-6 bg-white w-1/4 rightView">
-        <InfoOverView />
+        <InfoOverView errorData={data} />
       </div>
     </div>
   );
