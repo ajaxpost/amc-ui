@@ -44,4 +44,5 @@ export interface ErrorType {
   time: number;
   type: string;
   userId: string;
+  [name: string]: any;
 }

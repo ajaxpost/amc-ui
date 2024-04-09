@@ -1,12 +1,12 @@
-import { tagListConfig } from "./config";
+import { tagListConfig } from './config';
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@/components/ui/accordion";
-import InfoOverView from "./overview";
-import { ErrorType } from "@/components/error/data";
+} from '@/components/ui/accordion';
+import InfoOverView from './overview';
+import { ErrorType } from '@/components/error/data';
 
 const baseUrl = process.env.NEXT_REQUEST_URL;
 export default async function Component({
@@ -16,7 +16,8 @@ export default async function Component({
 }) {
   const errorId = searchParams.errorId;
   const url = `${baseUrl}/error/getErrorById/${errorId}`;
-  const data = await (await fetch(url)).json();
+  const result = await (await fetch(url)).json();
+  const data = result.data as ErrorType;
   return (
     <div className="bg-[#f8f8f9] pt-2 flex">
       <div className="w-3/4">
@@ -100,9 +101,7 @@ export default async function Component({
                       {item.label}
                     </div>
                     <div className="tagRightLabel bg-[#f4f1f1] text-[#4D6DBE]  text-[10px]  p-1  w-auto ">
-                      {item.render
-                        ? item.render(data.data)
-                        : data.data[item.value]}
+                      {item.render ? item.render(data) : data?.[item.value]}
                     </div>
                   </div>
                 </div>
@@ -136,11 +135,9 @@ export default async function Component({
                 </AccordionContent>
               </AccordionItem>
             </Accordion> */}
-            {(data?.data as ErrorType)?.errorStack
-              .split("\n")
-              .map((item, index) => {
-                return <div key={index}>{item}</div>;
-              })}
+            {data?.errorStack.split('\n').map((item, index) => {
+              return <div key={index}>{item}</div>;
+            })}
           </div>
         </div>
       </div>
