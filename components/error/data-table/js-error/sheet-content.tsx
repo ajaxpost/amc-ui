@@ -134,7 +134,6 @@ export default function Component({
         </SheetDescription>
       </SheetHeader>
       {children}
-      {/* {JSON.stringify(data || "")} */}
     </SheetContent>
   );
 }
