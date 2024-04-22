@@ -7,6 +7,9 @@ import {
 } from "@/components/ui/card";
 import { TodayFlowDataByTenMinProps, TodayType } from "./data";
 import dayjs from "dayjs";
+import UVCount from "@/components/console/uv-count";
+import Trend from "@/components/console/trend";
+
 const baseUrl = process.env.NEXT_REQUEST_URL;
 
 export const dynamic = "force-dynamic";
@@ -19,7 +22,6 @@ export default async function Page({
   const url = `${baseUrl}/getTodayFlowDataByTenMin?pid=${searchParams.pid}`;
   const result = await (await fetch(url, {})).json();
   const data = result.data as TodayFlowDataByTenMinProps;
-  console.log(data, "data22");
   // 今日访问量
   const todayHandler = (value: TodayType[]) => {
     return (
@@ -103,6 +105,8 @@ export default async function Page({
           </CardContent>
         </Card>
       </div>
+      <UVCount></UVCount>
+      <Trend></Trend>
     </main>
   );
 }
