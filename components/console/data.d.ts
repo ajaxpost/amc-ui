@@ -13,3 +13,12 @@ export interface uvCountForMonth {
   uvData: dayCount[];
   newUvData: dayCount[];
 }
+
+interface PvCount {
+  count: number;
+  hour: string;
+}
+export interface getPvCountByHour {
+  seven: PvCount[];
+  today: PvCount[];
+}
