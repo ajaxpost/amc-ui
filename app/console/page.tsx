@@ -9,6 +9,7 @@ import { TodayFlowDataByTenMinProps, TodayType } from "./data";
 import dayjs from "dayjs";
 import UVCount from "@/components/console/uv-count";
 import Trend from "@/components/console/trend";
+import Comprehensive from "@/components/console/comprehensive";
 
 const baseUrl = process.env.NEXT_REQUEST_URL;
 
@@ -107,6 +108,7 @@ export default async function Page({
       </div>
       <UVCount></UVCount>
       <Trend></Trend>
+      <Comprehensive></Comprehensive>
     </main>
   );
 }

@@ -22,3 +22,8 @@ export interface getPvCountByHour {
   seven: PvCount[];
   today: PvCount[];
 }
+
+export interface comprehensiveProps {
+  count: number;
+  showName: string;
+}
