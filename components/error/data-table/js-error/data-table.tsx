@@ -40,7 +40,7 @@ export default function Componetn(porp: Props) {
   const { data } = useSWR<ErrorListProps[]>(
     ['/api/error/getErrorList', pid],
     async ([url, pid]) => {
-      const startDate = dayjs().subtract(1, 'year').valueOf();
+      const startDate = dayjs().subtract(1, 'month').valueOf();
       const endDate = dayjs().valueOf();
       return await (
         await fetch(

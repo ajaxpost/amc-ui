@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 export const columns: ColumnDef<ErrorListProps>[] = [
   {
     accessorKey: 'errorMsg',
-    header: '最新错误（1小时内）',
+    header: '最新错误（1个月内）',
     cell: ({ row }) => {
       const data = row.original as ErrorListProps;
       const time = data.time;

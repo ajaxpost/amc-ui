@@ -51,3 +51,24 @@ export interface ErrorCountListByHour {
   count: number;
   hour: string;
 }
+
+export interface RecordScreenType {
+  apiKey: string;
+  deviceInfo: {
+    browser: string;
+    browserVersion: string;
+    os: string;
+    ua: string;
+  };
+  events: string;
+  recordScreenId: string;
+  sdkVersion: string;
+  time: number;
+  userId: string;
+  routeId: string;
+  sesId: string;
+  ip: string;
+  province: string;
+  city: string;
+  pageUrl: string;
+}
