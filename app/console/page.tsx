@@ -4,16 +4,16 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { TodayFlowDataByTenMinProps, TodayType } from "./data";
-import dayjs from "dayjs";
-import UVCount from "@/components/console/uv-count";
-import Trend from "@/components/console/trend";
-import Comprehensive from "@/components/console/comprehensive";
+} from '@/components/ui/card';
+import { TodayFlowDataByTenMinProps, TodayType } from './data';
+import dayjs from 'dayjs';
+import UVCount from '@/components/console/uv-count';
+import Trend from '@/components/console/trend';
+import Comprehensive from '@/components/console/comprehensive';
 
 const baseUrl = process.env.NEXT_REQUEST_URL;
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 export default async function Page({
   searchParams,
@@ -29,7 +29,7 @@ export default async function Page({
       <div className="text-[#363b52] font-bold text-4xl">
         {
           value.find((item) => {
-            return item.day === dayjs().format("YYYY-MM-DD");
+            return item.day === dayjs().format('YYYY-MM-DD');
           })!.dayCount
         }
       </div>
@@ -38,17 +38,20 @@ export default async function Page({
   //增长率
   const countHandler = (todayValue: TodayType[]) => {
     const today = todayValue.find((item) => {
-      return item.day === dayjs().format("YYYY-MM-DD");
+      return item.day === dayjs().format('YYYY-MM-DD');
     })!.dayCount;
     const yesterday =
       todayValue.find((item) => {
-        return item.day !== dayjs().format("YYYY-MM-DD");
+        return item.day !== dayjs().format('YYYY-MM-DD');
       })!.dayCount || 1;
-    const growthRate = ((today - yesterday) / yesterday) * 100;
+
+    const growthRate = Number(
+      (((today - yesterday) / yesterday) * 100).toFixed(2)
+    );
     return growthRate > 0 ? (
-      <span className="text-[#00af56]">{growthRate}%</span>
+      <span className="text-[#00af56]">上升 {Math.abs(growthRate)}%</span>
     ) : (
-      <span className="text-[#f85149]">{growthRate}%</span>
+      <span className="text-[#f85149]">下降 {Math.abs(growthRate)}%</span>
     );
   };
   return (

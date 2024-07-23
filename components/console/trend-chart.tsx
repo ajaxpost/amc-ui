@@ -1,18 +1,19 @@
-import { useEffect, useRef, useState } from "react";
-import { Card, CardContent, CardHeader } from "../ui/card";
-import * as echarts from "echarts";
-import useSWR from "swr";
-import { createUrl } from "@/lib/utils";
-import { HttpResult } from "@/lib/data";
-import { getPvCountByHour } from "./data";
-import { useSearchParams } from "next/navigation";
-import dayjs from "dayjs";
-import clsx from "clsx";
+'use client';
+import { useRef, useState } from 'react';
+import { Card, CardContent, CardHeader } from '../ui/card';
+import * as echarts from 'echarts';
+import useSWR from 'swr';
+import { createUrl } from '@/lib/utils';
+import { HttpResult } from '@/lib/data';
+import { getPvCountByHour } from './data';
+import { useSearchParams } from 'next/navigation';
+import dayjs from 'dayjs';
+import clsx from 'clsx';
 
 const reqObj: Record<string, string> = {
-  页面访问量趋势: "/api/getPvCountByHour",
-  用户活跃量趋势: "/api/getUvCountByHour",
-  新用户活跃量趋势: "/api/getNewCustomerCountByHour",
+  页面访问量趋势: '/api/getPvCountByHour',
+  用户活跃量趋势: '/api/getUvCountByHour',
+  新用户活跃量趋势: '/api/getNewCustomerCountByHour',
 };
 
 export default function TrendChard({ title }: { title: string }) {
@@ -20,11 +21,11 @@ export default function TrendChard({ title }: { title: string }) {
   const searchParams = useSearchParams();
   const [trendProportion, setTrendProportion] = useState(0);
   useSWR<HttpResult<getPvCountByHour>>(
-    [reqObj[title], searchParams.get("pid")],
+    [reqObj[title], searchParams.get('pid')],
     async ([url, pid]) => {
       return await (
         await fetch(createUrl(url, { pid, scope: 7 }), {
-          method: "GET",
+          method: 'GET',
         })
       ).json();
     },
@@ -46,38 +47,38 @@ export default function TrendChard({ title }: { title: string }) {
 
         option = {
           tooltip: {
-            trigger: "axis",
+            trigger: 'axis',
             axisPointer: {
-              type: "shadow",
+              type: 'shadow',
             },
           },
           xAxis: {
-            type: "category",
+            type: 'category',
             boundaryGap: false,
-            data: data.data?.seven.map((item) => item.hour),
+            data: data.data?.today.map((item) => item.hour),
           },
           grid: {
-            top: "3%",
-            left: "3%",
-            right: "3%",
-            bottom: "0%",
+            top: '3%',
+            left: '3%',
+            right: '3%',
+            bottom: '0%',
             containLabel: true,
           },
           yAxis: {
-            type: "value",
+            type: 'value',
           },
           series: [
             {
               data: data.data?.seven.map((item) => item.count),
-              type: "line",
-              name: "上周",
+              type: 'line',
+              name: '上周',
               smooth: true,
               areaStyle: {},
             },
             {
               data: data.data?.today.map((item) => item.count),
-              type: "line",
-              name: "本周",
+              type: 'line',
+              name: '本周',
               smooth: true,
               areaStyle: {},
             },
@@ -102,14 +103,14 @@ export default function TrendChard({ title }: { title: string }) {
         <div>
           <h4>{title}</h4>
           <span className="text-[12px] text-[#a3a5b0]">
-            {dayjs().format("YYYY-MM-DD")}
+            {dayjs().format('YYYY-MM-DD')}
           </span>
         </div>
         <div>
           <div
-            className={clsx("text-[16px]  font-bold", {
-              "text-[#f44336]": trendProportion > 0,
-              "text-[#4caf50]": trendProportion < 0,
+            className={clsx('text-[16px]  font-bold', {
+              'text-[#f44336]': trendProportion > 0,
+              'text-[#4caf50]': trendProportion < 0,
             })}
           >
             {trendProportion}%

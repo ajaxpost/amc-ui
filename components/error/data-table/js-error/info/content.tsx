@@ -1,10 +1,4 @@
 import { tagListConfig } from './config';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from '@/components/ui/accordion';
 import InfoOverView from './overview';
 import { ErrorType } from '@/components/error/data';
 
@@ -18,8 +12,6 @@ export default async function Component({
   const url = `${baseUrl}/error/getErrorById/${errorId}`;
   const result = await (await fetch(url)).json();
   const data = result.data as ErrorType;
-
-  console.log(data, 'datadata');
 
   return (
     <div className="bg-[#f8f8f9] pt-2 flex">

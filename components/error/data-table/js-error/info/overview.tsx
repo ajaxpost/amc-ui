@@ -1,5 +1,5 @@
-import { ErrorType } from "@/components/error/data";
-import ChartView from "./chart-view";
+import { ErrorType } from '@/components/error/data';
+import ChartView from './chart-view';
 
 const baseUrl = process.env.NEXT_REQUEST_URL;
 export default async function Component({
@@ -7,8 +7,17 @@ export default async function Component({
 }: {
   errorData: ErrorType;
 }) {
-  const url = `${baseUrl}/error/getErrorCountByNum?errorId=${errorData?.errorId}&pid=${errorData?.apiKey}&errorMsg=${errorData?.errorMsg}`;
-  const result = await (await fetch(url)).json();
+  let url = `${baseUrl}/error/getErrorCountByNum?errorId=${errorData?.errorId}&pid=${errorData?.apiKey}&errorMsg=${errorData?.errorMsg}`;
+  // if (errorData.type === 'console_error') {
+  //   url = `${baseUrl}/error/getErrorCountByNum?errorId=${errorData?.errorId}&pid=${errorData?.apiKey}`;
+  // }
+  const result = await (
+    await fetch(url, {
+      cache: 'no-cache',
+    })
+  ).json();
+  console.log(result, url, 'result');
+
   return (
     <div>
       <h4>数据概况</h4>

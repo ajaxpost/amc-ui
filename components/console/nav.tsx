@@ -1,10 +1,9 @@
 'use client';
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ResizablePanel } from '../ui/resizable';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 const overflowNavItems = [
@@ -102,6 +101,7 @@ const overflowNavItems = [
 
 function OverflowNav() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   return (
     <nav
@@ -120,7 +120,7 @@ function OverflowNav() {
             })}
           >
             <Link
-              href={item.key}
+              href={item.key + '?' + searchParams.toString()}
               className={
                 'group-[[data-collapsed=true]]:w-9 group-[[data-collapsed=true]]:h-9 group-[[data-collapsed=true]]:px-0 group-[[data-collapsed=true]]:py-0'
               }

@@ -55,7 +55,18 @@ export default function Header() {
               }
             )}
           >
-            错误
+            JS错误
+          </Link>
+          <Link
+            href={'/http_error' + (pid ? `?pid=${pid}` : '')}
+            className={cn(
+              'text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
+              {
+                'text-primary': pathname === '/http_error',
+              }
+            )}
+          >
+            接口错误
           </Link>
         </div>
         <div className="ml-auto flex items-center space-x-4">

@@ -7,6 +7,8 @@
   font-feature-settings: 'tnum';
   margin: 0;
   padding: 0;
+  padding-left: 20px;
+  padding-top: 10px;
   list-style: none;
 }
 .timeline-item {
@@ -16,9 +18,10 @@
   font-size: 14px;
   list-style: none;
 }
-.timeline-item.timeline-item-last > .timeline-item-tail {
-  display: none;
+.timeline .timeline-item:last-of-type .timeline-item-tail {
+  display: none !important;
 }
+
 .timeline-item-tail {
   position: absolute;
   top: 10px;
