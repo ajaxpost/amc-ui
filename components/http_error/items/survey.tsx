@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import { ErrorStatusType } from '../data';
 
 const map = {
+  0: 'linear-gradient(315deg, rgb(224 30 30), rgb(149 125 125))',
   404: 'linear-gradient(315deg,#7eabfc,#4d6ebe)',
   401: 'linear-gradient(315deg,#7eabfc,#4873f8)',
   503: 'linear-gradient(327deg,#71e1df,#23ccc9)',
@@ -28,7 +29,7 @@ export default function Survey({ date }: { date: string }) {
           return (
             <span
               key={item.status}
-              className=" flex justify-center items-center  w-[200px] h-[108px] bg-[#fafafa] rounded-sm mr-4 py-6 px-5 box-border"
+              className=" float-left flex justify-center items-center  w-[200px] h-[108px] bg-[#fafafa] rounded-sm mr-4 py-6 px-5 box-border"
             >
               <span
                 style={{
@@ -39,7 +40,7 @@ export default function Survey({ date }: { date: string }) {
                 }}
                 className="  w-[60px] h-[60px] leading-[60px] mr-4 text-center text-base font-semibold text-white rounded-full"
               >
-                {item.status}
+                {item.status === '0' ? 'Error' : item.status}
               </span>
               <span className="  text-3xl font-bold text-[#333] leading-[32px] h-[60px]">
                 {item.count}
@@ -53,6 +54,7 @@ export default function Survey({ date }: { date: string }) {
       ) : (
         <p>暂无数据</p>
       )}
+      <span className=" clear-both"></span>
     </div>
   );
 }
