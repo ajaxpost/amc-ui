@@ -68,6 +68,27 @@ const renderIcon = (type: string) => {
           </g>
         </svg>
       );
+    case 'http':
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="16" y="16" width="6" height="6" rx="1" />
+          <rect x="2" y="16" width="6" height="6" rx="1" />
+          <rect x="9" y="2" width="6" height="6" rx="1" />
+          <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
+          <path d="M12 12V8" />
+        </svg>
+      );
+
     default:
       return null;
   }
@@ -85,6 +106,8 @@ const renderTitle = (item: ErrorType['breadCrumb'][0]) => {
       return 'Promise错误';
     case 'router':
       return '页面浏览';
+    case 'http':
+      return 'HTTP请求';
     default:
       return null;
   }
@@ -102,6 +125,10 @@ const renderDesc = (item: ErrorType['breadCrumb'][0]) => {
     }
     case 'router':
       return item.data;
+    case 'http': {
+      const data = JSON.parse(item.data || '{}');
+      return data.url;
+    }
     default:
       return null;
   }

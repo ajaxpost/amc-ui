@@ -68,6 +68,17 @@ export default function Header() {
           >
             接口错误
           </Link>
+          <Link
+            href={'/api_monitor' + (pid ? `?pid=${pid}` : '')}
+            className={cn(
+              'text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
+              {
+                'text-primary': pathname === '/api_monitor',
+              }
+            )}
+          >
+            API 监控
+          </Link>
         </div>
         <div className="ml-auto flex items-center space-x-4">
           <GitHub />
