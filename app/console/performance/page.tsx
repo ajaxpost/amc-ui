@@ -12,6 +12,7 @@ export default async function Page({
 }) {
   const startDate = dayjs().subtract(14, 'day').valueOf();
   const endDate = dayjs().valueOf();
+
   const url = `${baseUrl}/per/getPerformance?pid=${searchParams.pid}&startDate=${startDate}&endDate=${endDate}`;
   const result = await (await fetch(url, {})).json();
   const data = result.data as DataType[];

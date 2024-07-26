@@ -8,12 +8,10 @@ export async function GET(request: NextRequest) {
   const endDate = searchParams.get('endDate');
 
   const result = await fetch(
-    `${baseUrl}/per/getPerformance?pid=${pid}&startDate=${startDate}&endDate=${endDate}`,
+    `${baseUrl}/getVisitPage?pid=${pid}&startDate=${startDate}&endDate=${endDate}`,
     {}
   );
   const data = await result.json();
 
-  if (data.code === 200) {
-    return Response.json(data.data);
-  }
+  if (data.code === 200) return Response.json(data.data);
 }

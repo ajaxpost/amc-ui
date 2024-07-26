@@ -75,7 +75,7 @@ const overflowNavItems = [
   },
   {
     key: '/console/region',
-    label: '地域统计',
+    label: '页面访问',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
