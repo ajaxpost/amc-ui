@@ -4,6 +4,22 @@ import dayjs from 'dayjs';
 import { ErrorListProps } from '../../data';
 import { Badge } from '@/components/ui/badge';
 
+function getTimeLabel(time: number) {
+  const minute = dayjs().diff(time, 'minute');
+  if (minute < 60) {
+    return `${minute}分钟之前`;
+  }
+  const hour = dayjs().diff(time, 'hour');
+  if (hour < 24) {
+    return `${hour}小时之前`;
+  }
+  const day = dayjs().diff(time, 'day');
+  if (day < 30) {
+    return `${day}天之前`;
+  }
+  return '30天之前';
+}
+
 export const columns: ColumnDef<ErrorListProps>[] = [
   {
     accessorKey: 'errorMsg',
@@ -16,9 +32,7 @@ export const columns: ColumnDef<ErrorListProps>[] = [
         <>
           <h1>{row.getValue('errorMsg')}</h1>
           <div className="mt-2">
-            <Badge variant="default">
-              {dayjs().diff(time, 'minute')}分钟之前
-            </Badge>
+            <Badge variant="default">{getTimeLabel(time)}</Badge>
             <span className="ml-2">
               {dayjs(time).format('YYYY-MM-DD HH:mm:ss')}
             </span>
